@@ -53,25 +53,24 @@ export default function TabLayout() {
       />
 
       <Tab.Screen
-  name="Action"
-  component={FindDoctorScreen}
-  options={{
-    tabBarLabel: "", // remove label
-    tabBarIcon: () => (
-      <View style={styles.centerButton}>
-        <View style={styles.halfview}>
-          <View style={styles.centerButtonInner}>
-            <Image
-              source={require("../../assets/images/3.png")}
-              style={{ width: 32, height: 32, tintColor: "#fff" }} 
-            />
-          </View>
-        </View>
-      </View>
-    ),
-  }}
-/>
-
+        name="Action"
+        component={FindDoctorScreen}
+        options={{
+          tabBarLabel: "", 
+          tabBarIcon: () => (
+            <View style={styles.centerButton}>
+              <View style={styles.halfview}>
+                <View style={styles.centerButtonInner}>
+                  <Image
+                    source={require("../../assets/images/3.png")}
+                    style={{ width: 32, height: 32, tintColor: "#fff" }}
+                  />
+                </View>
+              </View>
+            </View>
+          ),
+        }}
+      />
 
       <Tab.Screen
         name="Find Doctor"
@@ -109,8 +108,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   centerButton: {
-    position: 'absolute',
-    // bottom: 0, 
+    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -119,25 +117,24 @@ const styles = StyleSheet.create({
     height: 55,
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
-    borderWidth:10,
+    borderWidth: 10,
     borderColor: "#E4E4E4",
-    backgroundColor: "#E4E4E4", 
+    backgroundColor: "#E4E4E4",
     justifyContent: "center",
     alignItems: "center",
-    position: 'relative',
+    position: "relative",
     top: 6,
   },
   centerButtonInner: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    borderWidth:8,
+    borderWidth: 8,
     borderColor: "#fff",
     backgroundColor: "#047857",
     justifyContent: "center",
     alignItems: "center",
-    position: 'relative',
+    position: "relative",
     bottom: 20,
   },
 });
-

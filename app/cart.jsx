@@ -103,7 +103,6 @@ export default function CartScreen() {
         <ScrollView style={{ flex: 1, paddingHorizontal: 16, marginTop: 10 }}>
           {cartItems.map((item, index) => (
             <View key={item.id} style={styles.cardRow}>
-              {/* Circle before card */}
               <View style={styles.circle} />
 
               {/* Card */}

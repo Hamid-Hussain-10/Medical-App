@@ -134,7 +134,12 @@ const styles = StyleSheet.create({
     width: "85%",
   },
   line: { flex: 1, height: 1, backgroundColor: "#ccc" },
-  orText: { marginHorizontal: 8, fontSize: 14, color: "#777", fontWeight: "500" },
+  orText: {
+    marginHorizontal: 8,
+    fontSize: 14,
+    color: "#777",
+    fontWeight: "500",
+  },
   googleBtn: {
     borderWidth: 1,
     borderColor: "#ddd",

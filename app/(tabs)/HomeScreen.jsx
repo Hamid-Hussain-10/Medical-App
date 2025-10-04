@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
   },
   dealCard: { width: "70%", height: "70%", resizeMode: "cover", top: 20 },
   leftBadge: { position: "absolute", top: 4, left: 4, alignItems: "center" },
-  badgeBg: { width: 40, height: 40, resizeMode: "contain", },
+  badgeBg: { width: 40, height: 40, resizeMode: "contain" },
   discountText: {
     position: "absolute",
     color: "#fff",
