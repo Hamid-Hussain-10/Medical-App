@@ -164,7 +164,7 @@ export default function HomeScreen() {
                     source={require("../../assets/images/path.png")}
                     style={styles.badgeBg}
                   />
-                  <Text style={styles.discountText}>60%</Text>
+                  <Text style={styles.discountText}>20% OFF</Text>
                 </View>
                 <View style={styles.rightIcon}>
                   <Icon name="heart-outline" size={18} color="#047857" />
@@ -182,15 +182,22 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5faf9" },
   headerSection: { backgroundColor: "#047857", paddingTop: 35 },
-  header: { flexDirection: "row", padding: 12, alignItems: "center" },
+  header: {
+    flexDirection: "row",
+    padding: 12,
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginRight: 8,
+  },
   searchBox: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 25,
-    paddingHorizontal: 10,
-    marginRight: 10,
+    paddingHorizontal: 8,
+    marginRight: 20,
+    maxWidth: "75%",
   },
   searchInput: { flex: 1, paddingHorizontal: 8 },
   cartBtn: { position: "relative" },
@@ -299,8 +306,14 @@ const styles = StyleSheet.create({
   },
   dealCard: { width: "70%", height: "70%", resizeMode: "cover", top: 20 },
   leftBadge: { position: "absolute", top: 4, left: 4, alignItems: "center" },
-  badgeBg: { width: 40, height: 40, resizeMode: "contain" },
-  discountText: { position: "absolute", color: "#fff", fontWeight: "700" },
+  badgeBg: { width: 40, height: 40, resizeMode: "contain", },
+  discountText: {
+    position: "absolute",
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "700",
+    textAlign: "center",
+  },
   rightIcon: {
     position: "absolute",
     top: 8,

@@ -17,8 +17,8 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: "#047857",
           height: 70,
-          paddingBottom: 5,
-          // paddingVertical: 5,
+          paddingVertical: 15,
+          paddingHorizontal: 5,
         },
         tabBarLabelStyle: {
           color: "white",
@@ -53,25 +53,28 @@ export default function TabLayout() {
       />
 
       <Tab.Screen
-        name="Action"
-        component={FindDoctorScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.centerButton}>
-              <View style={styles.centerButtonInner}>
-                <Image
-                  source={require("../../assets/images/3.png")}
-                  style={{ width: 28, height: 28 }}
-                />
-              </View>
-            </View>
-          ),
+  name="Action"
+  component={FindDoctorScreen}
+  options={{
+    tabBarLabel: "", // remove label
+    tabBarIcon: () => (
+      <View style={styles.centerButton}>
+        <View style={styles.halfview}>
+          <View style={styles.centerButtonInner}>
+            <Image
+              source={require("../../assets/images/3.png")}
+              style={{ width: 32, height: 32, tintColor: "#fff" }} 
+            />
+          </View>
+        </View>
+      </View>
+    ),
+  }}
+/>
 
-        }}
-      />
 
       <Tab.Screen
-        name="FindDoctor"
+        name="Find Doctor"
         component={FindDoctorScreen}
         options={{
           tabBarIcon: () => (
@@ -106,21 +109,35 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   centerButton: {
-    top: -20, // move up
+    position: 'absolute',
+    // bottom: 0, 
     justifyContent: "center",
     alignItems: "center",
   },
+  halfview: {
+    width: 95,
+    height: 55,
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
+    borderWidth:10,
+    borderColor: "#E4E4E4",
+    backgroundColor: "#E4E4E4", 
+    justifyContent: "center",
+    alignItems: "center",
+    position: 'relative',
+    top: 6,
+  },
   centerButtonInner: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth:8,
+    borderColor: "#fff",
     backgroundColor: "#047857",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowOffset: { width: 0, height: 4 },
-    shadowRadius: 6,
-    elevation: 5,
+    position: 'relative',
+    bottom: 20,
   },
 });
+
