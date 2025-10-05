@@ -9,9 +9,15 @@ import {
   ScrollView,
   TextInput,
   StatusBar,
+  Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
+
+// Responsive helpers
+const { width, height } = Dimensions.get("window");
+const wp = (percent) => (width * percent) / 100;
+const hp = (percent) => (height * percent) / 100;
 
 export default function CartScreen() {
   const router = useRouter();
@@ -52,7 +58,6 @@ export default function CartScreen() {
     setQuantities((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Totals calculation
   const subtotal = cartItems.reduce(
     (acc, item, i) => acc + item.price * (quantities[i] || 1),
     0
@@ -64,7 +69,6 @@ export default function CartScreen() {
   return (
     <SafeAreaView style={styles.safeArea} edges={["top", "left", "right"]}>
       <StatusBar barStyle="light-content" backgroundColor="#047857" />
-
       <View style={styles.container}>
         {/* Header */}
         <View style={styles.header}>
@@ -72,10 +76,10 @@ export default function CartScreen() {
             onPress={() => router.back()}
             style={styles.backBtn}
           >
-            <Icon name="chevron-back" size={24} color="#fff" />
+            <Icon name="chevron-back" size={wp(6)} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Cart</Text>
-          <View style={{ width: 24 }} />
+          <View style={{ width: wp(6) }} />
         </View>
 
         {/* Tabs */}
@@ -96,16 +100,16 @@ export default function CartScreen() {
               Dubai, United Arab Emirates
             </Text>
           </Text>
-          <Icon name="chevron-forward" size={20} color="#333" />
+          <Icon name="chevron-forward" size={wp(5)} color="#333" />
         </View>
 
         {/* Cart Items */}
-        <ScrollView style={{ flex: 1, paddingHorizontal: 16, marginTop: 10 }}>
+        <ScrollView
+          style={{ flex: 1, paddingHorizontal: wp(4), marginTop: hp(1) }}
+        >
           {cartItems.map((item, index) => (
             <View key={item.id} style={styles.cardRow}>
               <View style={styles.circle} />
-
-              {/* Card */}
               <View style={styles.card}>
                 <View style={styles.imageBox}>
                   <Image source={item.image} style={styles.itemImage} />
@@ -125,7 +129,6 @@ export default function CartScreen() {
                     </Text>
                     <Text style={styles.strike}>AED {item.discount}</Text>
                   </View>
-                  {/* Quantity */}
                   <View style={styles.quantityRow}>
                     <TouchableOpacity
                       style={styles.qtyButton}
@@ -159,11 +162,11 @@ export default function CartScreen() {
             ]}
             onPress={() => setPaymentMethod("cash")}
           >
-            <Icon name="cash" size={20} color="#333" />
+            <Icon name="cash" size={wp(5)} color="#333" />
             <Text style={styles.paymentText}>Cash on Delivery</Text>
             {paymentMethod === "cash" && (
               <View style={styles.radioActive}>
-                <Icon name="checkmark" size={12} color="#fff" />
+                <Icon name="checkmark" size={wp(3)} color="#fff" />
               </View>
             )}
           </TouchableOpacity>
@@ -176,11 +179,11 @@ export default function CartScreen() {
             ]}
             onPress={() => setPaymentMethod("card")}
           >
-            <Icon name="card" size={20} color="#333" />
+            <Icon name="card" size={wp(5)} color="#333" />
             <Text style={styles.paymentText}>Card</Text>
             {paymentMethod === "card" && (
               <View style={styles.radioActive}>
-                <Icon name="checkmark" size={12} color="#fff" />
+                <Icon name="checkmark" size={wp(3)} color="#fff" />
               </View>
             )}
           </TouchableOpacity>
@@ -191,7 +194,7 @@ export default function CartScreen() {
               <View style={styles.row}>
                 <TextInput
                   placeholder="MM/YY"
-                  style={[styles.input, { flex: 1, marginRight: 6 }]}
+                  style={[styles.input, { flex: 1, marginRight: wp(1.5) }]}
                 />
                 <TextInput
                   placeholder="CVV"
@@ -218,10 +221,7 @@ export default function CartScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: "#047857",
-  },
+  safeArea: { flex: 1, backgroundColor: "#047857" },
   container: { flex: 1, backgroundColor: "#f9fafb" },
 
   header: {
@@ -229,184 +229,178 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: "#047857",
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingHorizontal: wp(5),
+    paddingVertical: hp(2.5),
   },
-  backBtn: { width: 24, alignItems: "flex-start" },
-  headerTitle: {
-    color: "#fff",
-    fontSize: 20,
-    fontWeight: "500",
-    textAlign: "center",
-  },
+  backBtn: { width: wp(6), alignItems: "flex-start" },
+  headerTitle: { color: "#fff", fontSize: wp(5), fontWeight: "500" },
 
   tabs: {
     flexDirection: "row",
     justifyContent: "flex-start",
     backgroundColor: "#fff",
-    paddingVertical: 10,
-    marginLeft: 10,
+    paddingVertical: hp(1),
+    marginLeft: wp(3),
   },
   activeTab: {
     backgroundColor: "#004540",
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginRight: 15,
+    paddingHorizontal: wp(5),
+    paddingVertical: hp(0.8),
+    borderRadius: wp(5),
+    marginRight: wp(3),
   },
-  activeTabText: { color: "#fff", fontWeight: "600" },
+  activeTabText: { color: "#fff", fontWeight: "600", fontSize: wp(3.5) },
   inactiveTab: {
     borderWidth: 1,
     borderColor: "#047857",
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 20,
+    paddingHorizontal: wp(5),
+    paddingVertical: hp(0.8),
+    borderRadius: wp(5),
   },
-  inactiveTabText: { color: "#004540" },
+  inactiveTabText: { color: "#004540", fontSize: wp(3.5) },
 
   deliveryBox: {
     backgroundColor: "#F1F5F9",
-    padding: 14,
+    padding: hp(1.5),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-  deliveryText: { fontSize: 14, fontWeight: "500", flex: 1 },
+  deliveryText: { fontSize: wp(3.5), fontWeight: "500", flex: 1 },
 
   cardRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: hp(1.5),
   },
   circle: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
+    width: wp(3.5),
+    height: wp(3.5),
+    borderRadius: wp(1.75),
     borderWidth: 1,
     borderColor: "#047857",
-    marginRight: 10,
+    marginRight: wp(2),
   },
   card: {
     flexDirection: "row",
     backgroundColor: "#fff",
-    borderRadius: 12,
-    padding: 12,
+    borderRadius: wp(3),
+    padding: wp(3),
     flex: 1,
     elevation: 4,
   },
 
-  imageBox: { alignItems: "center", marginRight: 12 },
-  itemImage: { width: 80, height: 80, borderRadius: 10 },
-  removeBtn: {
-    marginTop: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-  },
-  removeText: { fontSize: 14, color: "#000000", fontWeight: "400" },
+  imageBox: { alignItems: "center", marginRight: wp(3) },
+  itemImage: { width: wp(20), height: wp(20), borderRadius: wp(2) },
+  removeBtn: { marginTop: hp(3), paddingHorizontal: wp(3) },
+  removeText: { fontSize: wp(3.2), color: "#000" },
 
-  itemTitle: { fontSize: 14, fontWeight: "600", marginBottom: 2 },
-  itemDesc: { fontSize: 12, color: "#666" },
+  itemTitle: { fontSize: wp(3.8), fontWeight: "600" },
+  itemDesc: { fontSize: wp(3.2), color: "#666", marginTop: hp(0.3) },
   priceRow: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start",
-    marginTop: 6,
+    marginTop: hp(0.6),
   },
-  price: { fontSize: 16, fontWeight: "700", color: "#000000", marginRight: 8 },
-  strike: { fontSize: 14, color: "#999", textDecorationLine: "line-through" },
+  price: {
+    fontSize: wp(4),
+    fontWeight: "700",
+    color: "#000",
+    marginRight: wp(2),
+  },
+  strike: {
+    fontSize: wp(3.5),
+    color: "#999",
+    textDecorationLine: "line-through",
+  },
 
   quantityRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: hp(1),
     justifyContent: "flex-end",
   },
   qtyButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 4,
+    width: wp(7),
+    height: wp(7),
+    borderRadius: wp(1),
     borderWidth: 1,
+    borderColor: "#047857",
     backgroundColor: "#047857",
     justifyContent: "center",
     alignItems: "center",
   },
-  qtyText: { fontSize: 18, fontWeight: "600", color: "#ffffff" },
+  qtyText: { fontSize: wp(4), fontWeight: "500", color: "#fff" },
   qtyValue: {
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    fontSize: 16,
-    fontWeight: "600",
-    borderRadius: 4,
+    paddingHorizontal: wp(2),
+    paddingVertical: wp(0.5),
+    fontSize: wp(4),
+    fontWeight: "500",
+    borderRadius: wp(1),
     borderWidth: 1,
     borderColor: "#eee",
     textAlign: "center",
-    minWidth: 40,
+    minWidth: wp(10),
   },
 
   paymentSection: {
     backgroundColor: "#fff",
-    padding: 16,
+    padding: wp(4),
     borderTopWidth: 1,
     borderColor: "#eee",
   },
-  paymentTitle: { fontSize: 18, fontWeight: "500", marginBottom: 12 },
+  paymentTitle: { fontSize: wp(4.5), fontWeight: "500", marginBottom: hp(1.2) },
   paymentOption: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 12,
-    borderRadius: 12,
-    marginBottom: 10,
+    padding: wp(3),
+    borderRadius: wp(3),
+    marginBottom: hp(1),
   },
   paymentOptionActive: {
     borderColor: "#047857",
     backgroundColor: "#F0FDF4",
     borderWidth: 1,
   },
-  paymentText: { flex: 1, marginLeft: 10, fontSize: 14, fontWeight: "400" },
+  paymentText: { flex: 1, marginLeft: wp(2.5), fontSize: wp(3.5) },
   radioActive: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
+    width: wp(4.5),
+    height: wp(4.5),
+    borderRadius: wp(2.25),
     backgroundColor: "#047857",
     justifyContent: "center",
     alignItems: "center",
   },
 
-  cardInputs: { marginTop: 10 },
+  cardInputs: { marginTop: hp(1) },
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 14,
+    borderRadius: wp(2),
+    padding: wp(2.5),
+    fontSize: wp(3.5),
     backgroundColor: "#fff",
   },
-  row: { flexDirection: "row", marginTop: 6 },
+  row: { flexDirection: "row", marginTop: hp(0.8) },
 
   footer: {
     backgroundColor: "#fff",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    padding: 16,
+    padding: wp(4),
     borderTopWidth: 1,
     borderColor: "#eee",
   },
-  totalText: { fontSize: 16, fontWeight: "500" },
+  totalText: { fontSize: wp(4), fontWeight: "400" },
   checkoutBtn: {
     width: "70%",
     backgroundColor: "#047857",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 24,
+    paddingVertical: hp(1.8),
+    paddingHorizontal: wp(4),
+    borderRadius: wp(6),
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 10,
-    marginBottom: 8,
   },
-  checkoutText: {
-    color: "#fff",
-    fontSize: 15,
-    fontWeight: "500",
-  },
+  checkoutText: { color: "#fff", fontSize: wp(3.8), fontWeight: "500" },
 });

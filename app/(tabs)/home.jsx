@@ -10,11 +10,16 @@ import {
   Dimensions,
   StatusBar,
   ScrollView,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
+
+// Dynamic scaling helpers
+const wp = (percent) => (width * percent) / 100;
+const hp = (percent) => (height * percent) / 100;
 
 const banners = [
   require("../../assets/images/banner1.png"),
@@ -64,14 +69,14 @@ export default function HomeScreen() {
       <View style={styles.headerSection}>
         <View style={styles.header}>
           <View style={styles.searchBox}>
-            <Icon name="search-outline" size={18} color="#666" />
+            <Icon name="search-outline" size={14} color="#666" />
             <TextInput placeholder="Search" style={styles.searchInput} />
           </View>
           <TouchableOpacity
             onPress={() => router.push("/cart")}
             style={styles.cartBtn}
           >
-            <Icon name="cart" size={26} color="#fff" />
+            <Icon name="cart" size={wp(6.5)} color="#fff" />
             <View style={styles.badge}>
               <Text style={styles.badgeText}>3</Text>
             </View>
@@ -82,14 +87,14 @@ export default function HomeScreen() {
       {/* Location */}
       <View style={styles.locationSection}>
         <View style={styles.locationBox}>
-          <Text style={{ fontWeight: "500", fontSize: 14 }}>
+          <Text style={{ fontWeight: "500", fontSize: wp(3.5) }}>
             DELIVER TO:{" "}
-            <Text style={{ fontWeight: "500", fontSize: 14 }}>
+            <Text style={{ fontWeight: "500", fontSize: wp(3.5) }}>
               Dubai, United Arab Emirates
             </Text>
           </Text>
           <TouchableOpacity style={styles.changeBtn}>
-            <Text style={{ color: "#fff", fontSize: 12 }}>Change</Text>
+            <Text style={{ color: "#fff", fontSize: wp(3) }}>Change</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -131,7 +136,7 @@ export default function HomeScreen() {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(_, i) => i.toString()}
-            contentContainerStyle={{ paddingHorizontal: 8 }}
+            contentContainerStyle={{ paddingHorizontal: wp(2) }}
             renderItem={({ item }) => (
               <View style={styles.categoryCard}>
                 <Image source={item.img} style={styles.categoryImage} />
@@ -156,7 +161,7 @@ export default function HomeScreen() {
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(_, i) => i.toString()}
-            contentContainerStyle={{ paddingHorizontal: 8 }}
+            contentContainerStyle={{ paddingHorizontal: wp(2) }}
             renderItem={({ item }) => (
               <View style={styles.dealContainer}>
                 <View style={styles.leftBadge}>
@@ -167,7 +172,7 @@ export default function HomeScreen() {
                   <Text style={styles.discountText}>20% OFF</Text>
                 </View>
                 <View style={styles.rightIcon}>
-                  <Icon name="heart-outline" size={18} color="#047857" />
+                  <Icon name="heart-outline" size={wp(4)} color="#047857" />
                 </View>
                 <Image source={item} style={styles.dealCard} />
               </View>
@@ -181,13 +186,15 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#f5faf9" },
-  headerSection: { backgroundColor: "#047857", paddingTop: 35 },
+  headerSection: {
+    backgroundColor: "#047857",
+    paddingTop: Platform.OS === "ios" ? hp(5) : hp(4),
+  },
   header: {
     flexDirection: "row",
-    padding: 12,
+    padding: wp(3),
     alignItems: "center",
     justifyContent: "flex-end",
-    marginRight: 8,
   },
   searchBox: {
     flex: 1,
@@ -195,12 +202,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     borderRadius: 25,
-    paddingHorizontal: 8,
-    marginRight: 20,
+    paddingHorizontal: wp(3),
+    marginRight: wp(5),
     maxWidth: "75%",
+    maxHeight: "95%",
   },
-  searchInput: { flex: 1, paddingHorizontal: 8 },
-  cartBtn: { position: "relative" },
+  searchInput: { flex: 1, paddingHorizontal: wp(1) },
+  cartBtn: { position: "relative", marginRight: 5 },
   badge: {
     position: "absolute",
     top: -5,
@@ -210,92 +218,91 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 1,
   },
-  badgeText: { color: "#fff", fontSize: 10, fontWeight: "600" },
-  locationSection: { backgroundColor: "#ffffff", paddingBottom: 4 },
+  badgeText: { color: "#fff", fontSize: wp(2.5), fontWeight: "600" },
+  locationSection: { backgroundColor: "#F1F5F9", paddingBottom: hp(0.5) },
   locationBox: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    padding: 10,
+    padding: hp(1),
   },
   changeBtn: {
     backgroundColor: "#004B45",
-    paddingVertical: 4,
-    paddingHorizontal: 14,
+    paddingVertical: hp(0.5),
+    paddingHorizontal: wp(3),
     borderRadius: 12,
   },
   banner: {
-    width: width - 20,
-    height: 170,
+    width: wp(96),
+    height: hp(22),
     borderRadius: 12,
     resizeMode: "cover",
-    marginTop: 10,
-    marginHorizontal: 10,
+    marginTop: hp(1),
+    marginHorizontal: wp(2),
   },
   dotsContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginVertical: 6,
+    marginVertical: hp(0.5),
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: wp(2),
+    height: wp(2),
+    borderRadius: wp(1),
     backgroundColor: "#d1d5db",
-    marginHorizontal: 4,
+    marginHorizontal: wp(1),
   },
-  activeDot: { backgroundColor: "#047857", width: 8, height: 8 },
+  activeDot: { backgroundColor: "#047857" },
   sectionBox: {
     backgroundColor: "#fff",
     borderRadius: 8,
-    marginVertical: 8,
-    paddingVertical: 8,
+    marginVertical: hp(1),
+    paddingVertical: hp(1),
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: wp(4.5),
     backgroundColor: "#047857",
     color: "white",
     textAlign: "center",
-    fontWeight: "700",
-    paddingVertical: 5,
-    marginBottom: 6,
+    fontWeight: "500",
+    paddingVertical: hp(0.8),
+    marginBottom: hp(0.8),
   },
   categoryCard: {
-    width: 100,
-    height: 100,
-    marginHorizontal: 8,
+    width: wp(25),
+    height: wp(25),
+    marginHorizontal: wp(2),
     backgroundColor: "#cbd1cf",
     borderRadius: 6,
-    marginTop: 5,
     alignItems: "center",
     justifyContent: "space-between",
   },
-  categoryImage: { width: 70, height: 70, borderRadius: 8 },
+  categoryImage: { width: wp(18), height: wp(18), borderRadius: 8 },
   categoryText: {
     width: "100%",
-    fontSize: 11,
+    fontSize: wp(2.8),
     color: "#fff",
     backgroundColor: "#047857",
     textAlign: "center",
-    paddingVertical: 4,
+    paddingVertical: hp(0.5),
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
   },
   saleBanner: {
-    width: width - 20,
-    height: 160,
+    width: wp(96),
+    height: hp(20),
     borderRadius: 12,
     resizeMode: "cover",
-    marginHorizontal: 10,
+    marginHorizontal: wp(2),
   },
   dealContainer: {
-    width: 140,
-    height: 150,
+    width: wp(35),
+    height: hp(20),
     backgroundColor: "#fff",
     borderRadius: 10,
-    marginHorizontal: 8,
-    marginBottom: 8,
-    padding: 8,
+    marginHorizontal: wp(2),
+    marginBottom: hp(1),
+    padding: wp(2),
     elevation: 3,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -304,13 +311,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  dealCard: { width: "70%", height: "70%", resizeMode: "cover", top: 20 },
+  dealCard: { width: "70%", height: "70%", resizeMode: "cover", top: hp(2) },
   leftBadge: { position: "absolute", top: 4, left: 4, alignItems: "center" },
-  badgeBg: { width: 40, height: 40, resizeMode: "contain" },
+  badgeBg: { width: wp(10), height: wp(10), resizeMode: "contain" },
   discountText: {
     position: "absolute",
     color: "#fff",
-    fontSize: 12,
+    fontSize: wp(3),
     fontWeight: "700",
     textAlign: "center",
   },

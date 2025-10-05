@@ -2,10 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, View, StyleSheet } from "react-native";
 
-import HomeScreen from "./HomeScreen";
-import PrescriptionScreen from "./PrescriptionScreen";
-import FindDoctorScreen from "./FindDoctorScreen";
-import MoreScreen from "./MoreScreen";
+import HomeScreen from "./home";
+import PrescriptionScreen from "./prescriptions";
+import FindDoctorScreen from "./finddoctor";
+import MoreScreen from "./more";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +33,7 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <Image
               source={require("../../assets/images/1.png")}
-              style={{ width: 26, height: 26 }}
+              style={{ width: 22, height: 22 }}
             />
           ),
         }}
@@ -46,7 +46,7 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <Image
               source={require("../../assets/images/2.png")}
-              style={{ width: 26, height: 26 }}
+              style={{ width: 22, height: 22 }}
             />
           ),
         }}
@@ -56,7 +56,7 @@ export default function TabLayout() {
         name="Action"
         component={FindDoctorScreen}
         options={{
-          tabBarLabel: "", 
+          tabBarLabel: "",
           tabBarIcon: () => (
             <View style={styles.centerButton}>
               <View style={styles.halfview}>
@@ -79,7 +79,7 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <Image
               source={require("../../assets/images/4.png")}
-              style={{ width: 26, height: 26 }}
+              style={{ width: 22, height: 22 }}
             />
           ),
         }}
@@ -92,13 +92,14 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <Image
               source={require("../../assets/images/5.png")}
-              style={{ width: 26, height: 26 }}
+              style={{ width: 22, height: 22 }}
             />
           ),
           tabBarBadge: 5,
           tabBarBadgeStyle: {
+            fontSize: 10,
             position: "relative",
-            top: -10,
+            top: -8,
           },
         }}
       />
